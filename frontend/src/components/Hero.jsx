@@ -1,10 +1,10 @@
-import React from "react";
+
 
 const HeroSection = () => {
 
     return (
-        <div className="">
-            <div className="w-full sm:px-10 bg-[#e1dae4] rounded-md relative">
+        <div className="w-full h-screen">
+            <div className=" sm:px-10 bg-[#e1dae4] rounded-md relative">
 
                 {/* header */}
                 <header

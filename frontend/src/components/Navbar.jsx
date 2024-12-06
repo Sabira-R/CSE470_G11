@@ -1,5 +1,6 @@
 
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // react icons
 import { IoIosSearch } from "react-icons/io";
@@ -7,6 +8,15 @@ import { CiMenuFries } from "react-icons/ci";
 import { Link } from "react-router-dom";
 
 const ResponsiveNavbar = () => {
+    const [token, setToken] = useState(null)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const savedToken = localStorage.getItem('token')
+        if (savedToken) {
+            setToken(savedToken)
+        }
+    }, [])
 
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false)
 
@@ -25,14 +35,29 @@ const ResponsiveNavbar = () => {
                     </ul>
 
                     <div className="items-center gap-[10px] flex">
-                        <Link to='/signin'
-                            className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-[#3B9DF8] transition-all duration-300 sm:flex hidden">Sign
-                            in
-                        </Link>
-                        <Link to='/signup'
-                            className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#3B9DF8] text-white hover:bg-blue-400 transition-all duration-300 sm:flex hidden">Sign
-                            up
-                        </Link>
+                        {!token ? (
+                            <>
+                                <Link to='/signin'
+                                    className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-[#3B9DF8] transition-all duration-300 sm:flex hidden">Sign
+                                    in
+                                </Link>
+                                <Link to='/signup'
+                                    className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#3B9DF8] text-white hover:bg-blue-400 transition-all duration-300 sm:flex hidden">Sign
+                                    up
+                                </Link>
+                            </>
+                        ) : (
+                            <button
+                                onClick={() => {
+                                    localStorage.removeItem('token');
+                                    setToken(null);
+                                    navigate('/')
+                                }}
+                                className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-red-400 text-white hover:bg-red-500 transition-all duration-300"
+                            >
+                                Sign out
+                            </button>
+                        )}
 
                         <CiMenuFries className="text-[1.8rem] mr-1 text-[#424242]c cursor-pointer lg:hidden flex"
                             onClick={() => setMobileSidebarOpen(!mobileSidebarOpen)} />

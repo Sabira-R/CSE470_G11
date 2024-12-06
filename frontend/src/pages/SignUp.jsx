@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
     const [user, setUser] = useState({
@@ -15,7 +16,7 @@ export default function SignUp() {
             resume: ''
         }
     });
-
+    const navigate = useNavigate()
     const handleChange = (e) => {
         const { name, value } = e.target;
         if (name in user.profile) {
@@ -41,6 +42,9 @@ export default function SignUp() {
         try {
             const response = await axios.post('http://localhost:3000/api/signup', user);
             console.log(response.data);
+            if (response.data.success) {
+                navigate('/signin');
+            }
         } catch (error) {
             console.error('Error signing up:', error);
         }
@@ -48,7 +52,7 @@ export default function SignUp() {
 
     return (
         <div>
-            <div className="hero bg-[#9389bd] min-h-screen">
+            <div className="hero bg-[#e1dae4] min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left text-black/60">
                         <h1 className="text-5xl font-bold">Sign Up now!</h1>
@@ -56,7 +60,7 @@ export default function SignUp() {
                             Join our job portal and find your dream job today!
                         </p>
                     </div>
-                    <div className="card bg-[#cfcad1] w-full max-w-sm shrink-0 shadow-2xl">
+                    <div className="card bg-[#9389bd] w-full max-w-sm shrink-0 shadow-2xl">
                         <form onSubmit={handleSubmit} className="card-body">
                             <div className="form-control">
                                 <label className="label">

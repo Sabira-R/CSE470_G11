@@ -1,11 +1,12 @@
-import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 export default function SignIn() {
     const [user, setUser] = useState({
         email: '',
         password: ''
     })
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         setUser({
@@ -15,16 +16,22 @@ export default function SignIn() {
     }
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(user)
 
-        const response = await axios.post('http://localhost:3000/api/signin', user)
-
-        console.log(response.data)
+        try {
+            const response = await axios.post('http://localhost:3000/api/signin', user)
+            if (response.data.success) {
+                localStorage.setItem('token', response.data.token)
+                navigate('/main')
+                window.location.reload()
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
         <div>
-            <div className="hero bg-[#9389bd] min-h-screen">
+            <div className="hero bg-[#e1dae4] min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center lg:text-left text-black/60">
                         <h1 className="text-5xl font-bold">Sign In now!</h1>
@@ -33,7 +40,7 @@ export default function SignIn() {
                             quasi. In deleniti eaque aut repudiandae et a id nisi.
                         </p>
                     </div>
-                    <div className="card bg-[#cfcad1]  w-full max-w-sm shrink-0 shadow-2xl">
+                    <div className="card bg-[#9389bd]  w-full max-w-sm shrink-0 shadow-2xl">
                         <form onSubmit={handleSubmit} className="card-body ">
                             <div className="form-control">
                                 <label className="label">
