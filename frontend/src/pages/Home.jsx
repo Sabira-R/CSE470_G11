@@ -1,7 +1,11 @@
-import React from 'react'
+
+import HeroSection from '../components/Hero'
+
 
 export const Home = () => {
     return (
-        <div>Home</div>
+        <div className='w-full h-screen bg-[#e1dae4]'>
+            <HeroSection />
+        </div>
     )
 }

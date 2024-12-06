@@ -41,6 +41,7 @@ export async function SignUp(req, res) {
         res.status(201).json({
             message: "User registered successfully",
             user: savedUser,
+            success: true
         });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
@@ -70,8 +71,9 @@ export async function SignIn(req, res) {
         // Send response
         res.status(200).json({
             message: "User signed in successfully",
-            user: user.toJSON(),
-            token
+            user: user,
+            token,
+            success: true
         });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
