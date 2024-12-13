@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 
 function Jobs() {
     const [jobs, setJobs] = useState([]);
-    const [searchQuery, setSearchQuery] = useState(""); // State for search input
-    const [filteredJobs, setFilteredJobs] = useState([]); // State for filtered jobs
+    const [searchQuery, setSearchQuery] = useState("");
+    const [filteredJobs, setFilteredJobs] = useState([]);
 
     useEffect(() => {
         // Fetch all jobs
@@ -18,7 +18,7 @@ function Jobs() {
                     },
                 });
                 setJobs(response.data);
-                setFilteredJobs(response.data); // Initialize filtered jobs
+                setFilteredJobs(response.data);
             } catch (error) {
                 console.error("Error fetching jobs:", error);
             }
@@ -31,8 +31,8 @@ function Jobs() {
         setSearchQuery(query);
 
         const filtered = jobs.filter((job) =>
-            job.title.toLowerCase().includes(query) || 
-            job.company.toLowerCase().includes(query) || 
+            job.title.toLowerCase().includes(query) ||
+            job.company.toLowerCase().includes(query) ||
             job.location.toLowerCase().includes(query)
         );
         setFilteredJobs(filtered);
