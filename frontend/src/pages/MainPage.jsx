@@ -1,13 +1,12 @@
 import { useState, } from 'react';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useUserContext } from '../../context/userContext';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 export default function MainPage() {
-    //getting user from context
-    const { user, isLoading } = useUserContext()
+    //getting from context
+    const { isLoading } = useUserContext()
 
     const [job, setJob] = useState({
         title: '',
@@ -25,41 +24,6 @@ export default function MainPage() {
     const [jobs, setJobs] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-
-
-
-
-
-    useEffect(() => {
-        // Fetch all jobs
-        const fetchJobs = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/api/jobs');
-                setJobs(response.data);
-            } catch (error) {
-                console.error('Error fetching jobs:', error);
-            }
-        };
-        fetchJobs();
-
-    }, []);
-
-    const dummyjob = {
-        _id: 'dummy-job-id',
-        title: 'Software Engineer',
-        description: 'We are looking for a skilled software engineer to join our team.',
-        company: 'Tech Corp',
-        location: 'San Francisco, CA',
-        workType: 'Full-time',
-        salary: '120000',
-        status: 'Open',
-        skills: 'JavaScript, React, Node.js',
-        applicationDeadline: '2023-12-31',
-        experience: '3+ years',
-        educationLevel: 'Bachelor\'s Degree',
-        postedBy: 'HR Department',
-        category: 'Engineering'
-    }
 
 
 
@@ -101,7 +65,7 @@ export default function MainPage() {
 
     return (
         <div className="bg-[#e1dae4] min-h-screen flex flex-col items-center py-10">
-            <div className="bg-white/60 p-6 rounded-2xl shadow-xl w-full max-w-4xl mb-8 border border-gray-200">
+            <div className="bg-white/60 p-6 rounded-2xl shadow-xl w-full max-w-4xl mb-5 border border-gray-200">
                 <h2 className="text-3xl font-bold text-gray-700 mb-6">Post a Job</h2>
                 <input
                     name="title"
@@ -340,7 +304,7 @@ export default function MainPage() {
                 </div>
             )}
 
-            <div className="w-full max-w-4xl mt-10">
+            <div className="w-full max-w-4xl">
                 <Link to="/jobs">
                     <button
                         className="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 rounded-lg hover:shadow-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 font-semibold"

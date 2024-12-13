@@ -5,6 +5,9 @@ import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import ProtectedRoutes from '../../utils/ProtectedRoutes'
 import MainPage from '../pages/MainPage'
+import Jobs from '../pages/Jobs'
+import JobMain from '../pages/JobMain'
+
 export default function AllRoutes() {
     return (
         <Routes>
@@ -13,6 +16,8 @@ export default function AllRoutes() {
             <Route path='/signup' element={<SignUp />} />
             <Route element={<ProtectedRoutes />}>
                 <Route path='/main' element={<MainPage />} />
+                <Route path='/jobs' element={<Jobs />} />
+                <Route path='/jobs/:id' element={<JobMain />} />
             </Route>
         </Routes>
     )

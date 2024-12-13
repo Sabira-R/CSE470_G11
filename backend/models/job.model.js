@@ -31,23 +31,18 @@ const JobSchema = new mongoose.Schema({
     required: true
   },
   salary: {
-    min: {
-      type: Number,
-      min: 0
-    },
-    max: {
-      type: Number,
-      min: 0
-    },
-    currency: {
-      type: String,
-      default: 'USD'
-    }
+    type: Number,
+    min: 0,
+    required: true
+  },
+  currency: {
+    type: String,
+    default: 'USD'
   },
   status: {
     type: String,
     enum: ['Draft', 'Active', 'Closed', 'Filled'],
-    default: 'Draft'
+    default: 'Active'
   },
   skills: [{
     type: String,
@@ -64,15 +59,9 @@ const JobSchema = new mongoose.Schema({
     }
   },
   experience: {
-    min: {
-      type: Number,
-      min: 0,
-      default: 0
-    },
-    max: {
-      type: Number,
-      min: 0
-    }
+    type: Number,
+    min: 0,
+    required: true
   },
   educationLevel: {
     type: String,
