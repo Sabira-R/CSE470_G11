@@ -95,13 +95,13 @@ function Jobs() {
                         id="job-search"
                         value={searchQuery}
                         onChange={handleSearch}
-                        className="w-full px-4 py-2 border rounded-lg pl-10 bg-gray-50"
+                        className="w-full px-4 py-2 border rounded-lg pl-10 bg-gray-50 outline-none"
                         placeholder="Search jobs..."
                     />
                     <select
                         value={filterCriteria}
                         onChange={handleFilterChange}
-                        className="ml-4 px-4 py-2 border rounded-lg bg-gray-50"
+                        className="ml-4 px-4 py-2 border rounded-lg bg-gray-50 outline-none"
                     >
                         <option value="all">All</option>
                         <option value="experience">Experience &lt;= 2 years</option>
