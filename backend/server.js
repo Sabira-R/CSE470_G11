@@ -2,6 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import { connect } from './config/db.js';
 import dotenv from 'dotenv';
+import morgan from 'morgan';
+
+//security packages
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
 
 //import routes
 import userRoutes from './routes/userRoutes.js'
@@ -12,18 +18,20 @@ connect()
 const app = express();
 const port = 3000;
 
-
+app.use(helmet());
+app.use(xss());
+app.use(mongoSanitize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors())
+app.use(morgan('dev'))
 
 //routes
 app.use('/api', userRoutes)
 app.use('/jobs', jobRoutes)
 
-
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+    res.send("<h1>Hello World!</h1>");
 });
 
 app.listen(port, () => {
