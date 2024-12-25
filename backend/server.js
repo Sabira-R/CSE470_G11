@@ -10,7 +10,7 @@ import jobRoutes from './routes/jobRoutes.js'
 dotenv.config();
 connect()
 const app = express();
-const port = 3000;
+const port = 3001;
 
 
 app.use(express.json());
