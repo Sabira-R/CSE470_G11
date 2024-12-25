@@ -104,7 +104,7 @@ function Jobs() {
                         className="ml-4 px-4 py-2 border rounded-lg bg-gray-50 outline-none"
                     >
                         <option value="all">All</option>
-                        <option value="experience">Experience &lt;= 2 years</option>
+                        <option value="experience">Experience less than or equal to 2 years</option>
                         <option value="education">Bachelor&apos;s Degree</option>
                     </select>
                 </div>
@@ -137,6 +137,9 @@ function Jobs() {
                                         <Briefcase className="w-4 h-4 mr-1" /> {job.experience} years
                                     </div>
                                 </div>
+                                <Link to={`/apply/${job._id}`} className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
+                                    Apply
+                                </Link>
                             </div>
                         </Link>
                     ))}
