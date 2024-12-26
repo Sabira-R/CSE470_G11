@@ -1,4 +1,5 @@
 import jobModel from "../models/job.model.js";
+import applicationModel from "../models/application.model.js";
 
 export async function createJob(req, res) {
     const {
@@ -140,5 +141,42 @@ export async function deleteJob(req, res) {
     }
     catch (error) {
         res.status(500).json({ message: "Server error", error })
+    }
+}
+
+export async function submitApplication(req, res) {
+    console.log("API Connected to Submit Application");
+    const { name, email, resume } = req.body;
+    const jobId = req.params.id;
+
+    // Check if user is authenticated and job ID is valid
+    if (!req.user || !jobId) {
+        return res.status(400).json({ message: "Invalid user or job ID" });
+    }
+
+    try {
+        console.log('Request body:', req.body);
+        console.log('Job ID:', jobId);
+
+        // Create a new application document
+        const newApplication = new applicationModel({
+            name,
+            email,
+            resume,
+            job: jobId,
+            applicant: req.user._id,
+        });
+
+        // Save application to the database
+        const savedApplication = await newApplication.save();
+        console.log("Application saved successfully:", savedApplication);
+
+        res.status(201).json({
+            message: "Application submitted successfully",
+            data: savedApplication,
+        });
+    } catch (error) {
+        console.error("Error saving application:", error);
+        res.status(500).json({ message: "Server error", error });
     }
 }
