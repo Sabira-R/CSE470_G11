@@ -35,14 +35,14 @@ const JobSchema = new mongoose.Schema({
     min: 0,
     required: true
   },
-  currency: {
-    type: String,
-    default: 'USD'
-  },
+  // currency: {
+  //   type: String,
+  //   default: 'USD'
+  // },
   status: {
     type: String,
-    enum: ['Draft', 'Active', 'Closed', 'Filled'],
-    default: 'Active'
+    enum: ['Pending', 'Approved', 'Closed', 'Filled'],
+    default: 'Pending'
   },
   skills: [{
     type: String,
