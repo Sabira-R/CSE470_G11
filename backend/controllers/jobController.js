@@ -1,5 +1,6 @@
 import jobModel from "../models/job.model.js";
 import applicationModel from "../models/application.model.js";
+import { notifyJobseekers } from "../sendemail/sendemail.js";
 
 export async function createJob(req, res) {
     const {
@@ -44,6 +45,9 @@ export async function createJob(req, res) {
 
         // Save job to database
         const savedJob = await newJob.save();
+
+        // Notify jobseekers about the new job
+        await notifyJobseekers(savedJob); // Add this line
 
         // Send response
         res.status(201).json({
