@@ -1,4 +1,3 @@
-
 import { Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/Home'
 import SignIn from '../pages/SignIn'
@@ -7,6 +6,7 @@ import ProtectedRoutes from '../../utils/ProtectedRoutes'
 import MainPage from '../pages/MainPage'
 import Jobs from '../pages/Jobs'
 import JobMain from '../pages/JobMain'
+import JobApplication from '../pages/JobApplication' // Import the JobApplication component
 
 export default function AllRoutes() {
     return (
@@ -18,6 +18,7 @@ export default function AllRoutes() {
                 <Route path='/main' element={<MainPage />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/:id' element={<JobMain />} />
+                <Route path='/apply/:jobId' element={<JobApplication />} /> {/* New route for job application */}
             </Route>
         </Routes>
     )

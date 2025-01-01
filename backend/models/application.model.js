@@ -6,18 +6,22 @@ const ApplicationSchema = new mongoose.Schema({
         ref: 'Job',
         required: true
     },
-    applicant: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    // applicant: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
+    name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
         required: true
     },
     resume: {
         type: String,
         required: true
-    },
-    coverLetter: {
-        type: String,
-        maxlength: 2000
     },
     status: {
         type: String,
@@ -31,10 +35,12 @@ const ApplicationSchema = new mongoose.Schema({
             enum: ['Online', 'Offline', 'Phone']
         },
         notes: String
+
     },
     additionalDocuments: [{
         name: String,
         url: String
+
     }],
     appliedAt: {
         type: Date,
@@ -49,7 +55,7 @@ const ApplicationSchema = new mongoose.Schema({
 });
 
 // Ensure unique application per job per user
-ApplicationSchema.index({ job: 1, applicant: 1 }, { unique: true });
+// ApplicationSchema.index({ job: 1, applicant: 1 }, { unique: true });
 
 const applicationModel = mongoose.model('Application', ApplicationSchema);
 

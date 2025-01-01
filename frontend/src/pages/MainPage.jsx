@@ -60,6 +60,21 @@ export default function MainPage() {
         setCurrentStep(currentStep - 1);
     };
 
+    const saveJobDraft = async () => {
+        try {
+            const response = await axios.post('http://localhost:3000/jobs/save-draft', job, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+            toast.success('Job draft saved successfully');
+        } catch (error) {
+            console.error('Error saving job draft:', error);
+            toast.error('Failed to save job draft');
+        }
+    };
+
+
 
     if (isLoading) return <h1>Loading...</h1>
 
@@ -281,6 +296,13 @@ export default function MainPage() {
                                             className="flex-1 bg-gray-500 text-white py-3 rounded-lg hover:shadow-lg hover:bg-gray-600 transition-all duration-300 font-semibold"
                                         >
                                             Previous
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={saveJobDraft}
+                                            className="flex-1 bg-yellow-500 text-white py-3 rounded-lg hover:shadow-lg hover:bg-yellow-600 transition-all duration-300 font-semibold"
+                                        >
+                                            Save Job Draft
                                         </button>
                                         <button
                                             type="submit"

@@ -64,6 +64,10 @@ const UserSchema = new mongoose.Schema({
     timestamps: true
 });
 
+UserSchema.statics.getUsersWithRole = async function(role) {
+    return this.find({ role });
+};
+
 // Add methods or statics if needed
 UserSchema.methods.toJSON = function () {
     const obj = this.toObject();
