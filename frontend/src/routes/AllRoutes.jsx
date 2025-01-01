@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/Home'
+import Analytics from '../pages/Analytics';
 import SignIn from '../pages/SignIn'
 import SignUp from '../pages/SignUp'
 import ProtectedRoutes from '../../utils/ProtectedRoutes'
@@ -12,6 +13,7 @@ export default function AllRoutes() {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/analytics" element={<Analytics />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
             <Route element={<ProtectedRoutes />}>

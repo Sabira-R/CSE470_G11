@@ -14,4 +14,7 @@ router.delete('/delete/:id', authMiddleware, deleteJob)
 
 router.route('/apply/:id').post(authMiddleware, submitApplication)
 router.post('/save-draft', authMiddleware, saveJobDraft)
+
+
+
 export default router
