@@ -234,6 +234,19 @@ export async function submitApplication(req, res) {
     }
 
     try {
+        // Get the job details
+        const job = await jobModel.findById(jobId);
+        if (!job) {
+            return res.status(404).json({ message: "Job not found" });
+        }
+
+        // Check if the applicant is the job poster
+        if (job.postedBy.toString() === req.user._id.toString()) {
+            return res.status(403).json({
+                message: "You can not apply for your own posted job"
+            });
+        }
+
         console.log('Request body:', req.body);
         console.log('Job ID:', jobId);
 
