@@ -1,4 +1,4 @@
-import { useState, } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useUserContext } from '../../context/userContext';
 import toast from 'react-hot-toast';
@@ -24,6 +24,9 @@ export default function MainPage() {
     const [jobs, setJobs] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
+    const [applications, setApplications] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
 
 
@@ -75,6 +78,60 @@ export default function MainPage() {
     };
 
 
+
+    const getStatusColor = (status) => {
+        switch (status) {
+            case 'Pending':
+                return 'bg-yellow-100 text-yellow-800';
+            case 'Reviewed':
+                return 'bg-blue-100 text-blue-800';
+            case 'Shortlisted':
+                return 'bg-green-100 text-green-800';
+            case 'Interview':
+                return 'bg-purple-100 text-purple-800';
+            case 'Rejected':
+                return 'bg-red-100 text-red-800';
+            default:
+                return 'bg-gray-100 text-gray-800';
+        }
+    };
+
+    useEffect(() => {
+        const fetchApplications = async () => {
+            try {
+                console.log('Fetching applications...');
+                const token = localStorage.getItem('token');
+                if (!token) {
+                    throw new Error('No authentication token found');
+                }
+
+                const response = await axios.get('http://localhost:3000/applications', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                console.log('Applications response:', response);
+                if (!response.data || !response.data.success || !response.data.data) {
+                    throw new Error('Invalid response format from server');
+                }
+
+                setApplications(response.data.data);
+            } catch (err) {
+                console.error('Error fetching applications:', err);
+                if (err.response) {
+                    console.error('Response data:', err.response.data);
+                    console.error('Response status:', err.response.status);
+                    console.error('Response headers:', err.response.headers);
+                }
+                setError(err.message || 'Failed to fetch applications');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchApplications();
+    }, []);
 
     if (isLoading) return <h1>Loading...</h1>
 
@@ -326,7 +383,7 @@ export default function MainPage() {
                 </div>
             )}
 
-            <div className="w-full max-w-4xl">
+            <div className="w-full max-w-4xl mb-8">
                 <Link to="/jobs">
                     <button
                         className="w-full bg-gradient-to-r from-green-500 to-teal-600 text-white py-3 rounded-lg hover:shadow-lg hover:from-green-600 hover:to-teal-700 transition-all duration-300 font-semibold"
@@ -334,6 +391,45 @@ export default function MainPage() {
                         View All Jobs
                     </button>
                 </Link>
+            </div>
+
+            {/* Application Status Section */}
+            <div className="bg-white/60 p-6 rounded-2xl shadow-xl w-full max-w-4xl">
+                <h2 className="text-3xl font-bold text-gray-700 mb-6">Your Applications</h2>
+                <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white">
+                        <thead className="bg-gray-50">
+                            <tr>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Job Title
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Applied At
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-200">
+                            {applications.map((application) => (
+                                <tr key={application._id}>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {application.job?.title}
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <span className={`px-2 py-1 rounded-full text-sm font-medium ${getStatusColor(application.status)}`}>
+                                            {application.status}
+                                        </span>
+                                    </td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        {new Date(application.appliedAt).toLocaleDateString()}
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     );

@@ -7,7 +7,8 @@ import ProtectedRoutes from '../../utils/ProtectedRoutes'
 import MainPage from '../pages/MainPage'
 import Jobs from '../pages/Jobs'
 import JobMain from '../pages/JobMain'
-import JobApplication from '../pages/JobApplication' // Import the JobApplication component
+import JobApplication from '../pages/JobApplication';
+import ApplicationStatus from '../pages/ApplicationStatus';
 
 export default function AllRoutes() {
     return (
@@ -20,7 +21,8 @@ export default function AllRoutes() {
                 <Route path='/main' element={<MainPage />} />
                 <Route path='/jobs' element={<Jobs />} />
                 <Route path='/jobs/:id' element={<JobMain />} />
-                <Route path='/apply/:jobId' element={<JobApplication />} /> {/* New route for job application */}
+                <Route path='/apply/:jobId' element={<JobApplication />} />
+                <Route path='/application-status' element={<ApplicationStatus />} />
             </Route>
         </Routes>
     )

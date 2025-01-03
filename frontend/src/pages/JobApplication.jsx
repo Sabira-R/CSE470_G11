@@ -40,7 +40,8 @@ const JobApplication = () => {
             alert(response.data.message);
         } catch (error) {
             console.error('Error submitting application:', error.response || error.message);
-            alert('Failed to submit application. Please try again.');
+            const errorMessage = error.response?.data?.message || 'Failed to submit application. Please try again.';
+            alert(errorMessage);
         }
     };
 

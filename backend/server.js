@@ -26,9 +26,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors())
 app.use(morgan('dev'))
 
+// Import application routes
+import applicationRoutes from './routes/applicationRoutes.js';
+
 //routes
 app.use('/api', userRoutes)
 app.use('/jobs', jobRoutes)
+app.use('/applications', applicationRoutes)
 
 
 app.get('/', (req, res) => {
