@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useUserContext } from '../../context/userContext';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 export default function MainPage() {
     //getting from context
@@ -101,11 +102,14 @@ export default function MainPage() {
             try {
                 console.log('Fetching applications...');
                 const token = localStorage.getItem('token');
+                const decoded = jwtDecode(token);
+                const id = decoded.id;
+                console.log('User ID:', id);
                 if (!token) {
                     throw new Error('No authentication token found');
                 }
 
-                const response = await axios.get('http://localhost:3000/applications', {
+                const response = await axios.get(`http://localhost:3000/applications/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
