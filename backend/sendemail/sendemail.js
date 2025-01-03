@@ -16,7 +16,7 @@ const rateLimiter = {
             this.lastReset = now;
         }
         
-        if (this.emailCount >= 500) {
+        if (this.emailCount >= 450) {
             throw new Error('Daily email limit reached');
         }
         this.emailCount++;
