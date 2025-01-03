@@ -1,5 +1,5 @@
 import express from 'express';
-import { SignUp, SignIn , GetUserProfile } from '../controllers/userController.js';
+import { SignUp, SignIn , GetUserProfile, getAllUsers, getApplicationCount } from '../controllers/userController.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 import { rateLimit } from 'express-rate-limit'
 
@@ -17,5 +17,7 @@ const router = express.Router();
 router.post('/signup', limiter, SignUp);
 router.post('/signin', limiter, SignIn);
 router.get('/profile' , authMiddleware, GetUserProfile)
+router.get('/users', authMiddleware, getAllUsers); 
+router.get('/applications/count', authMiddleware, getApplicationCount);
 
 export default router;
