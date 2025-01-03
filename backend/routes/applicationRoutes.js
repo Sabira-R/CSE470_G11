@@ -4,6 +4,6 @@ import { getAllApplications } from '../controllers/applicationController.js';
 const router = express.Router();
 
 // Get all applications
-router.get('/:id', getAllApplications);
+router.get('/', getAllApplications);
 
 export default router;
