@@ -1,4 +1,5 @@
 import userModel from "../models/user.model.js";
+import applicationModel from '../models/application.model.js';
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -90,5 +91,23 @@ export async function GetUserProfile(req, res) {
         res.status(200).json({ user });
     } catch (error) {
         res.status(500).json({ message: "Server error", error });
+    }
+}
+
+export async function getAllUsers(req, res) {
+    try {
+        const users = await userModel.find(); // Fetch all users
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching users', error });
+    }
+}
+
+export async function getApplicationCount(req, res) {
+    try {
+        const applicationCount = await applicationModel.countDocuments(); // Count all applications
+        res.status(200).json({ count: applicationCount });
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching application count', error });
     }
 }
