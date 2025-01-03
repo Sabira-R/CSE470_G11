@@ -72,14 +72,14 @@ export default function SignIn() {
                             <div className="form-control mt-6">
                                 <button
                                     type="submit"
-                                    onClick={() => setLoginType('employee')}
+                                    onClick={() => setLoginType('employer')}
                                     className="btn btn-primary text-white mb-2"
                                 >
                                     Login as Employee
                                 </button>
                                 <button
                                     type="submit"
-                                    onClick={() => setLoginType('employer')}
+                                    onClick={() => setLoginType('employee')}
                                     className="btn btn-secondary text-white"
                                 >
                                     Login as Employer
