@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 export default function SignIn() {
@@ -6,7 +6,15 @@ export default function SignIn() {
         email: '',
         password: ''
     })
+    const [loginType, setLoginType] = useState('employee');
+
     const navigate = useNavigate()
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/main');
+        }
+    }, [navigate]);
 
     const handleChange = (e) => {
         setUser({
@@ -21,7 +29,12 @@ export default function SignIn() {
             const response = await axios.post('http://localhost:3000/api/signin', user)
             if (response.data.success) {
                 localStorage.setItem('token', response.data.token)
-                navigate('/main')
+                if (loginType === 'employee') {
+                    navigate('/main')
+                }
+                if (loginType === 'employer') {
+                    navigate('/jobs');
+                }
                 window.location.reload()
             }
         } catch (error) {
@@ -36,7 +49,7 @@ export default function SignIn() {
                     <div className="text-center lg:text-left text-black/60">
                         <h1 className="text-5xl font-bold">Sign In now!</h1>
                         <p className="py-6">
-                            Discover more than just a job - Find your perfect career fit.
+                         Discover more than just a job - Find your perfect career fit.
                         </p>
                     </div>
                     <div className="card bg-[#9389bd]  w-full max-w-sm shrink-0 shadow-2xl">
@@ -57,7 +70,20 @@ export default function SignIn() {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary text-white">Login</button>
+                                <button
+                                    type="submit"
+                                    onClick={() => setLoginType('employee')}
+                                    className="btn btn-primary text-white mb-2"
+                                >
+                                    Login as Employee
+                                </button>
+                                <button
+                                    type="submit"
+                                    onClick={() => setLoginType('employer')}
+                                    className="btn btn-secondary text-white"
+                                >
+                                    Login as Employer
+                                </button>
                             </div>
                         </form>
                     </div>
