@@ -38,29 +38,8 @@ const ApplicationStatus = () => {
         }
     };
 
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center h-64">
-                <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600" role="status">
-                    <span className="visually-hidden">Loading...</span>
-                </div>
-            </div>
-        );
-    }
-    ;
-    if (error) {
-        return (
-            <div className="text-center">
-                <p>Error: {error}</p>
-                <button
-                    onClick={fetchApplications}
-                    className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                >
-                    Retry
-                </button>
-            </div>
-        );
-    };
+    if (loading) return <div>Loading applications...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="container mx-auto px-4 py-8">

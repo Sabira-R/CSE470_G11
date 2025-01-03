@@ -145,11 +145,7 @@ function Jobs() {
                     ))}
                 </div>
                 {filteredJobs.length === 0 && (
-                    <div className="flex justify-center items-center h-64">
-                    <div className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full text-blue-600" role="status">
-                        <span className="visually-hidden">...</span>
-                    </div>
-                </div>
+                    <p className="text-center text-gray-500">No jobs found.</p>
                 )}
             </div>
 

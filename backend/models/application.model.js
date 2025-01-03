@@ -6,11 +6,11 @@ const ApplicationSchema = new mongoose.Schema({
         ref: 'Job',
         required: true
     },
-    applicant: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-    },
+    // applicant: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User',
+    //     required: true
+    // },
     name: {
         type: String,
         required: true
