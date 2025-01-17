@@ -1,4 +1,4 @@
-**JobMadeEasy: A Comprehensive Job Management Platform**
+# JobMadeEasy: A Comprehensive Job Management Platform
 
 JobMadeEasy is a feature-rich platform designed to simplify job management for employers and streamline job searches for seekers. This project is built using the MERN stack (MongoDB, Express.js, React.js, Node.js) with a focus on delivering an intuitive user experience, efficient data handling, and secure functionality.
 
@@ -61,7 +61,7 @@ Rate Limiting: IP-based rate limiting to prevent abuse.
 Data Encryption: Ensures secure storage and transmission of sensitive data.
 
 
-**Setup Instructions**
+## **Setup Instructions**
 
 Clone the repository:
 
