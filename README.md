@@ -61,6 +61,26 @@ Rate Limiting: IP-based rate limiting to prevent abuse.
 Data Encryption: Ensures secure storage and transmission of sensitive data.
 
 
+**Setup Instructions**
+
+Clone the repository:
+
+git clone <repository-url>
+
+**Install dependencies for the backend and frontend:**
+
+cd backend
+
+npm install
+
+cd ../frontend
+
+npm install
+
+
+**Set up .env files for both frontend and backend with appropriate configurations.**
+
+
 **Run the development servers:**
 
 **Backend**
@@ -75,3 +95,7 @@ npm start
 cd frontend
 
 npm run dev
+
+
+
+Access the application at http://localhost:3000.
